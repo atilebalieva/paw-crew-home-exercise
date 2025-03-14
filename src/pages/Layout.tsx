@@ -1,9 +1,12 @@
-import { Outlet } from "react-router-dom";
+import NavBar from "@/components/NavBar/NavBar";
+import SearchPage from "./SearchPage";
 
 const Layout = () => {
+  console.log("search-page");
   return (
     <main>
-      <Outlet />
+      <NavBar />
+      <SearchPage />
     </main>
   );
 };
