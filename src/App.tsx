@@ -1,9 +1,18 @@
-import { useState } from "react";
+import LoginPage from "./pages/LoginPage";
+import { Routes, Route } from "react-router-dom";
+import RequireAuth from "./components/auth/RequireAuth";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
-  const [count, setCount] = useState(0);
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
 
-  return <></>;
+      <Route element={<RequireAuth />}>
+        <Route path="/search-page" element={<SearchPage />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;
