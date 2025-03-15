@@ -7,15 +7,15 @@ import Favorites from "./components/Favorites";
 function App() {
   return (
     <>
-      <Layout />
-      {/*           
+      {/*  <Layout /> */}
+
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Layout />} />
           <Route path="/favorites" element={<Favorites />} />
         </Route>
-      </Routes> */}
+      </Routes>
     </>
   );
 }

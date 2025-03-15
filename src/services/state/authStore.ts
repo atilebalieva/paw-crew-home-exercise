@@ -5,6 +5,8 @@ interface AuthState {
   user: { name: string; email: string } | null;
   login: (user: { name: string; email: string }) => void;
   logout: () => void;
+  dogBreeds: string[];
+  setDogBreeds: (breeds: string[]) => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -12,6 +14,8 @@ const useAuthStore = create<AuthState>((set) => ({
   user: null,
   login: (user) => set({ isAuthenticated: true, user }),
   logout: () => set({ isAuthenticated: false, user: null }),
+  dogBreeds: [],
+  setDogBreeds: (breeds) => set({ dogBreeds: breeds }),
 }));
 
 export default useAuthStore;
