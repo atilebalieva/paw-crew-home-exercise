@@ -9,7 +9,7 @@ export interface Dog {
 
 export interface FilterItemsProps {
   selectedBreed: string;
-  setSelectedBreed: (breed: string) => void;
+  setSelectedBreed: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   breeds: string[];
 }
 

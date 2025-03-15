@@ -14,10 +14,10 @@ const DogsCard = ({ dogs, isFavorite, toggleFavorite }: DogCardProps) => {
       {dogs.map((dog) => (
         <Card
           key={dog.id}
-          className="overflow-hidden transition-all hover:shadow-xl rounded-3xl border-4 border-accent/30 hover:border-accent/50 hover:-translate-y-1 duration-300 w-72"
+          className="cursor-pointer overflow-hidden transition-all hover:shadow-xl rounded-3xl border-4 border-accent/30 hover:border-accent/50 hover:-translate-y-1 duration-300 md:w-72 xl:w-96 pt-0"
         >
-          <div className="relative h-48 overflow-hidden">
-            <img src={dog.img} alt={dog.breed} className="w-full h-full object-contain" />
+          <div className="relative h-56 overflow-hidden">
+            <img src={dog.img} alt={dog.breed} className="w-full h-full object-cover" />
             <Button
               variant="ghost"
               className={`absolute top-3 right-3 rounded-full bg-white shadow-lg ${
@@ -31,14 +31,14 @@ const DogsCard = ({ dogs, isFavorite, toggleFavorite }: DogCardProps) => {
               <h2 className="text-xl font-bold text-white">{dog.name}</h2>
             </div>
           </div>
-          <CardContent className="pt-4 bg-white">
+          <CardContent className="pt-4">
             <div className="flex items-center gap-2 mb-2">
               <Bone className="h-4 w-4 text-primary" />
-              <p className="font-medium text-foreground">{dog.breed}</p>
+              <p className="font-medium text-foreground text-lg">{dog.breed}</p>
             </div>
             <div className="flex justify-between text-sm text-muted-foreground">
-              <span className="bg-secondary/20 px-3 py-1 rounded-full">Age: {dog.age} years</span>
-              <span className="bg-secondary/20 px-3 py-1 rounded-full">ZIP: {dog.zip_code}</span>
+              <span className="px-3 py-1 text-lg">Age: {dog.age}</span>
+              <span className="px-3 py-1 text-lg">ZIP: {dog.zip_code}</span>
             </div>
           </CardContent>
         </Card>
