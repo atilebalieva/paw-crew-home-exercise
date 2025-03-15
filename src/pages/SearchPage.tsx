@@ -1,73 +1,20 @@
-import { useEffect, useState } from "react";
-import { Dog } from "@/lib/infer-types";
-import * as api from "@/services/api/api";
+import { useState } from "react";
 import useAuthStore from "@/services/state/authStore";
 import Pagination from "@/components/PaginationComponent";
 import DogsCard from "@/components/SearchPage/DogsCard";
 import Banner from "@/components/SearchPage/Banner";
 import FilterItems from "@/components/SearchPage/FilterItems";
 import SortItems from "@/components/SearchPage/SortItems";
+import { useDogs } from "@/hooks/useDogs";
 
 const SearchPage = () => {
-  const [error, setError] = useState("");
-  const [page, setPage] = useState<number>(1);
-  const [totalDogs, setTotalDogs] = useState<number>(0);
-  const { dogs, setDogs, dogBreeds, setDogBreeds } = useAuthStore();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const { dogBreeds } = useAuthStore();
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const [allDogs, setAllDogs] = useState<Dog[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
-  useEffect(() => {
-    const fetchDogBreeds = async () => {
-      try {
-        const breeds = await api.getDogBreeds();
-        setDogBreeds(breeds);
-      } catch (err: any) {
-        setError("Something went wrong, there is no list of dogs.");
-      }
-    };
-
-    fetchDogBreeds();
-  }, []);
-
-  const fetchDogs = async () => {
-    if (loading) return;
-    setLoading(true);
-
-    try {
-      const dogsPerPage = 25;
-
-      const response = await api.searchDogs({
-        breeds: selectedBreed ? [selectedBreed] : dogBreeds,
-        size: dogsPerPage,
-        from: (page - 1) * dogsPerPage,
-        sort: `breed:${sortOrder}`,
-      });
-
-      if (response.resultIds.length > 0) {
-        const dogDetails = await api.getDogs(response.resultIds);
-        if (!selectedBreed) {
-          setAllDogs(dogDetails);
-        }
-        setDogs(dogDetails);
-        setTotalDogs(response.total);
-      } else {
-        setError("No dogs found for these breeds.");
-      }
-    } catch (err: any) {
-      setError("Failed to fetch dog details.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchDogs();
-  }, [selectedBreed, page, sortOrder]);
-
-  console.log("DOGS", dogs);
+  const { dogs, allDogs, totalDogs, error } = useDogs(selectedBreed, page, sortOrder, dogBreeds);
 
   const handleSortChange = (order: "asc" | "desc") => {
     setSortOrder(order);
@@ -81,8 +28,6 @@ const SearchPage = () => {
       setFavorites([...favorites, id]);
     }
   };
-
-  console.log("TOTAL", totalDogs);
 
   const handleBreedFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedBreed(event.target.value);
