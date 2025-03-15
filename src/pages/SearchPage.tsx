@@ -8,13 +8,14 @@ import SortItems from "@/components/SearchPage/SortItems";
 import { useDogs } from "@/hooks/useDogs";
 
 const SearchPage = () => {
-  const { dogBreeds } = useAuthStore();
+  const { dogs, dogBreeds } = useAuthStore();
+
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState<number>(1);
   const [favorites, setFavorites] = useState<string[]>([]);
 
-  const { dogs, allDogs, totalDogs, error } = useDogs(selectedBreed, page, sortOrder, dogBreeds);
+  const { allDogs, totalDogs, error } = useDogs(selectedBreed, page, sortOrder);
 
   const handleSortChange = (order: "asc" | "desc") => {
     setSortOrder(order);
