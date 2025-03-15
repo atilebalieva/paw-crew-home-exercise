@@ -1,13 +1,27 @@
 import { useState, useEffect } from "react";
 import * as api from "@/services/api/api";
 import { Dog } from "@/lib/infer-types";
+import useAuthStore from "@/services/state/authStore";
 
-export const useDogs = (selectedBreed: string, page: number, sortOrder: "asc" | "desc", dogBreeds: string[]) => {
-  const [dogs, setDogs] = useState<Dog[]>([]);
+export const useDogs = (selectedBreed: string, page: number, sortOrder: "asc" | "desc") => {
+  const { dogBreeds, setDogBreeds, setDogs } = useAuthStore();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [totalDogs, setTotalDogs] = useState<number>(0);
   const [allDogs, setAllDogs] = useState<Dog[]>([]);
+
+  useEffect(() => {
+    const fetchDogBreeds = async () => {
+      try {
+        const breeds = await api.getDogBreeds();
+        setDogBreeds(breeds);
+      } catch (err: any) {
+        setError("Something went wrong, there is no list of dogs.");
+      }
+    };
+
+    fetchDogBreeds();
+  }, []);
 
   useEffect(() => {
     const fetchDogs = async () => {
@@ -15,7 +29,8 @@ export const useDogs = (selectedBreed: string, page: number, sortOrder: "asc" | 
       setLoading(true);
 
       try {
-        const dogsPerPage = 25;
+        const dogsPerPage = 24;
+
         const response = await api.searchDogs({
           breeds: selectedBreed ? [selectedBreed] : dogBreeds,
           size: dogsPerPage,
@@ -41,7 +56,7 @@ export const useDogs = (selectedBreed: string, page: number, sortOrder: "asc" | 
     };
 
     fetchDogs();
-  }, [selectedBreed, page, sortOrder, dogBreeds]);
+  }, [selectedBreed, page, sortOrder]);
 
-  return { dogs, allDogs, totalDogs, error, loading };
+  return { allDogs, totalDogs, error };
 };
