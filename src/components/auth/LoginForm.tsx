@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AuthCard from "./AuthCard";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuthStore from "@/services/state/authStore";
 
 const LoginSchema = z.object({
