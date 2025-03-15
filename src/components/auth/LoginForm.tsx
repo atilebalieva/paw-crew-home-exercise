@@ -11,8 +11,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "@/services/state/authStore";
 
 const LoginSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email address" }).min(1, { message: "Email is required" }),
+  name: z.string().min(3, { message: "Please add name with at least 3 characters" }),
+  email: z.string().email({ message: "Invalid email address" }).min(3, { message: "Email is required" }),
 });
 
 type LoginFormData = z.infer<typeof LoginSchema>;
@@ -27,7 +27,6 @@ const LoginForm = () => {
   });
   const { login, logout } = useAuthStore();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [error, setError] = useState<string | null>(null);
 
@@ -36,7 +35,7 @@ const LoginForm = () => {
       await api.login(data.name, data.email);
 
       login({ name: data.name, email: data.email });
-      navigate("/search-page", { replace: true });
+      navigate("/", { replace: true });
       form.reset();
     } catch (err: any) {
       setError("Login failed");

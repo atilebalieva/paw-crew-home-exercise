@@ -17,7 +17,7 @@ const NavBarMobile = () => {
       </SheetTrigger>
       <SheetContent side="left" className="w-[300px] sm:w-[400px] p-4">
         <nav className="flex flex-col gap-4">
-          <Link to="/search-page" /* className="flex items-center gap-2 text-lg font-semibold" */>
+          <Link to="/" /* className="flex items-center gap-2 text-lg font-semibold" */>
             <PawCrewLogo />
           </Link>
           <FavoritesMenu style="flex items-center gap-2 text-lg" />

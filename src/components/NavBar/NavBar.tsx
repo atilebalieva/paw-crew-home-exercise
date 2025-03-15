@@ -12,7 +12,7 @@ const NavBar = () => {
         <div className="container mx-auto flex h-16 items-center px-4">
           <NavBarMobile />
           <div className="flex items-center gap-2 mr-4">
-            <Link to="/search-page" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2">
               <PawCrewLogo />
             </Link>
           </div>
