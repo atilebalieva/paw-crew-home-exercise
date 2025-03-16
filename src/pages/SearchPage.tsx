@@ -1,23 +1,23 @@
 import { useState } from "react";
-import useAuthStore from "@/services/state/authStore";
 import Pagination from "@/components/PaginationComponent";
 import DogsCard from "@/components/DogsCard";
 import Banner from "@/components/SearchPage/Banner";
 import FilterItems from "@/components/SearchPage/FilterItems";
 import SortItems from "@/components/SearchPage/SortItems";
-import { useDogs } from "@/hooks/useDogs";
+import { useDogs, SortField, SortDirection } from "@/hooks/useDogs";
+import Loading from "@/components/Loading";
 
 const SearchPage = () => {
-  const { dogs, dogBreeds, allDogs } = useAuthStore();
-
   const [selectedBreed, setSelectedBreed] = useState<string>("");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortField, setSortField] = useState<SortField>("breed");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [page, setPage] = useState<number>(1);
 
-  const { totalDogs, error } = useDogs(selectedBreed, page, sortOrder);
+  const { totalDogs, breeds, dogDetails, isLoading } = useDogs(selectedBreed, page, sortField, sortDirection);
 
-  const handleSortChange = (order: "asc" | "desc") => {
-    setSortOrder(order);
+  const handleSortChange = (field: SortField, direction: SortDirection) => {
+    setSortField(field);
+    setSortDirection(direction);
     setPage(1);
   };
 
@@ -26,32 +26,24 @@ const SearchPage = () => {
     setPage(1);
   };
 
-  const filteredDogs = selectedBreed ? dogs : allDogs;
-
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  if (isLoading) return <div className="flex justify-center items-center h-64">Loading...</div>;
 
   return (
     <section className="grow">
-      <Banner />
+      {/*       <Banner /> */}
       <section className="container mx-auto px-4 py-8 mt-10">
         <div className="flex justify-between">
-          <FilterItems selectedBreed={selectedBreed} setSelectedBreed={handleBreedFilter} breeds={dogBreeds} />
-          <SortItems sortOrder={sortOrder} setSortOrder={handleSortChange} />
+          <FilterItems selectedBreed={selectedBreed} setSelectedBreed={handleBreedFilter} breeds={breeds} />
+          <SortItems currentSort={{ field: sortField, direction: sortDirection }} onSortChange={handleSortChange} />
         </div>
-        {filteredDogs.length > 0 ? (
-          <section>
-            <DogsCard dogs={filteredDogs} />
-            <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
-          </section>
-        ) : (
-          <p>No dogs found for the selected breed.</p>
-        )}
+        <section>
+          <DogsCard dogs={dogDetails} />
+          <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
+        </section>
       </section>
     </section>
   );
