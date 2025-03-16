@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useAuthStore from "@/services/state/authStore";
 import Pagination from "@/components/PaginationComponent";
-import DogsCard from "@/components/SearchPage/DogsCard";
+import DogsCard from "@/components/DogsCard";
 import Banner from "@/components/SearchPage/Banner";
 import FilterItems from "@/components/SearchPage/FilterItems";
 import SortItems from "@/components/SearchPage/SortItems";

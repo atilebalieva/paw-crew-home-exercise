@@ -12,11 +12,11 @@ interface DogCardProps {
 const DogsCard = ({ dogs }: DogCardProps) => {
   const { favorites, addFavorite, removeFavorite } = useAuthStore();
 
-  const toggleFavorite = (id: string) => {
-    if (favorites.includes(id)) {
-      removeFavorite(id);
+  const toggleFavorite = (dog: Dog) => {
+    if (favorites.includes(dog.id)) {
+      removeFavorite(dog.id);
     } else {
-      addFavorite(id);
+      addFavorite(dog);
     }
   };
 
@@ -34,7 +34,7 @@ const DogsCard = ({ dogs }: DogCardProps) => {
               className={`absolute top-3 right-3 rounded-full bg-white shadow-lg ${
                 favorites.includes(dog.id) ? "text-destructive" : "text-muted-foreground"
               }`}
-              onClick={() => toggleFavorite(dog.id)}
+              onClick={() => toggleFavorite(dog)}
             >
               <Heart className={favorites.includes(dog.id) ? "fill-current" : ""} size={20} />
             </Button>
