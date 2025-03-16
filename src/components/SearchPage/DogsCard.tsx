@@ -2,18 +2,29 @@ import { Dog } from "@/lib/infer-types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Bone, Heart } from "lucide-react";
+import useAuthStore from "@/services/state/authStore";
+import { v4 as uuidv4 } from "uuid";
 
 interface DogCardProps {
   dogs: Dog[];
-  isFavorite: string[];
-  toggleFavorite: (id: string) => void;
 }
-const DogsCard = ({ dogs, isFavorite, toggleFavorite }: DogCardProps) => {
+
+const DogsCard = ({ dogs }: DogCardProps) => {
+  const { favorites, addFavorite, removeFavorite } = useAuthStore();
+
+  const toggleFavorite = (id: string) => {
+    if (favorites.includes(id)) {
+      removeFavorite(id);
+    } else {
+      addFavorite(id);
+    }
+  };
+
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       {dogs.map((dog) => (
         <Card
-          key={dog.id}
+          key={uuidv4()}
           className="cursor-pointer overflow-hidden transition-all hover:shadow-xl rounded-3xl border-4 border-accent/30 hover:border-accent/50 hover:-translate-y-1 duration-300 md:w-72 xl:w-96 pt-0"
         >
           <div className="relative h-56 overflow-hidden">
@@ -21,11 +32,11 @@ const DogsCard = ({ dogs, isFavorite, toggleFavorite }: DogCardProps) => {
             <Button
               variant="ghost"
               className={`absolute top-3 right-3 rounded-full bg-white shadow-lg ${
-                isFavorite.includes(dog.id) ? "text-destructive" : "text-muted-foreground"
+                favorites.includes(dog.id) ? "text-destructive" : "text-muted-foreground"
               }`}
               onClick={() => toggleFavorite(dog.id)}
             >
-              <Heart className={isFavorite.includes(dog.id) ? "fill-current" : ""} size={20} />
+              <Heart className={favorites.includes(dog.id) ? "fill-current" : ""} size={20} />
             </Button>
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
               <h2 className="text-xl font-bold text-white">{dog.name}</h2>

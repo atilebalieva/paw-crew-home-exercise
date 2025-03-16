@@ -12,7 +12,7 @@ const FilterItems = ({ selectedBreed, setSelectedBreed, breeds }: FilterItemsPro
         >
           <option value="">All Breeds</option>
           {breeds.map((breed: string, index) => (
-            <option value={breed} key={index + 0.5}>
+            <option value={breed} key={`${breed}-${index}`}>
               {breed}
             </option>
           ))}

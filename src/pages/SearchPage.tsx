@@ -8,26 +8,17 @@ import SortItems from "@/components/SearchPage/SortItems";
 import { useDogs } from "@/hooks/useDogs";
 
 const SearchPage = () => {
-  const { dogs, dogBreeds } = useAuthStore();
+  const { dogs, dogBreeds, allDogs } = useAuthStore();
 
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState<number>(1);
-  const [favorites, setFavorites] = useState<string[]>([]);
 
-  const { allDogs, totalDogs, error } = useDogs(selectedBreed, page, sortOrder);
+  const { totalDogs, error } = useDogs(selectedBreed, page, sortOrder);
 
   const handleSortChange = (order: "asc" | "desc") => {
     setSortOrder(order);
     setPage(1);
-  };
-
-  const toggleFavorite = (id: string) => {
-    if (favorites.includes(id)) {
-      setFavorites(favorites.filter((favId) => favId !== id));
-    } else {
-      setFavorites([...favorites, id]);
-    }
   };
 
   const handleBreedFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -46,7 +37,7 @@ const SearchPage = () => {
   }
 
   return (
-    <section>
+    <section className="grow">
       <Banner />
       <section className="container mx-auto px-4 py-8 mt-10">
         <div className="flex justify-between">
@@ -55,7 +46,7 @@ const SearchPage = () => {
         </div>
         {filteredDogs.length > 0 ? (
           <section>
-            <DogsCard dogs={filteredDogs} isFavorite={favorites} toggleFavorite={toggleFavorite} />
+            <DogsCard dogs={filteredDogs} />
             <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
           </section>
         ) : (

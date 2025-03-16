@@ -25,6 +25,7 @@ const UserAccountMenu = () => {
       console.error("Logout failed", error);
     }
   };
+
   return (
     <>
       <DropdownMenu>

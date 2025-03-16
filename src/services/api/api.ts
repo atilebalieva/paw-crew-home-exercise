@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import axios, { AxiosError } from "axios";
 import useAuthStore from "../state/authStore";
 
 const URL = "https://frontend-take-home-service.fetch.com";
@@ -16,27 +15,22 @@ const handleTokenExpiration = (navigate: Function) => {
   navigate("/login", { replace: true });
 };
 
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response && error.response.status === 401) {
-      const navigate = useNavigate();
+export const login = async (name: string, email: string, navigate: Function) => {
+  try {
+    const response = await api.post("/auth/login", JSON.stringify({ name, email }));
+
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
       handleTokenExpiration(navigate);
-
-      return Promise.reject(new Error("Session expired"));
     }
-
-    return Promise.reject(error);
-  },
-);
-
-export const login = async (name: string, email: string) => {
-  const response = await api.post("/auth/login", JSON.stringify({ name, email }));
-  return response.data;
+    throw error;
+  }
 };
 
 export const logout = async () => {
   await api.post("/auth/logout");
+  localStorage.removeItem("isAuthenticated");
 };
 
 export const getDogBreeds = async () => {
