@@ -2,13 +2,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import * as api from "@/services/api/api";
+import { apiClient } from "@/services/api/api";
 import { Button } from "@/components/ui/button";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AuthCard from "./AuthCard";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "@/services/state/authStore";
 
 const LoginSchema = z.object({
   name: z.string().min(3, { message: "Please add name with at least 3 characters" }),
@@ -25,17 +24,15 @@ const LoginForm = () => {
       email: "",
     },
   });
-  const { login } = useAuthStore();
+
   const navigate = useNavigate();
 
   const [error, setError] = useState<string | null>(null);
 
   const onSubmitForm = async (data: LoginFormData) => {
     try {
-      await api.login(data.name, data.email, navigate);
+      await apiClient.login(data.name, data.email);
 
-      login({ name: data.name, email: data.email });
-      localStorage.setItem("isAuthenticated", "true");
       navigate("/", { replace: true });
       form.reset();
     } catch (err: any) {

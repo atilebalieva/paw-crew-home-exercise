@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import SearchInput from "./SearchInput";
 import NavBarMobile from "./NavBarMobile";
 import PawCrewLogo from "../PawCrewLogo";
-import FavoritesMenu from "./FavoritesMenu";
+import FavoritesMenu from "./FavoritesDogsMenu";
 import UserAccountMenu from "./UserAccountMenu";
 
 const NavBar = () => {

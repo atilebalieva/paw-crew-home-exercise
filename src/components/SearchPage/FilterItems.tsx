@@ -1,4 +1,8 @@
-import { FilterItemsProps } from "@/lib/infer-types";
+export interface FilterItemsProps {
+  selectedBreed: string;
+  setSelectedBreed: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  breeds: string[];
+}
 
 const FilterItems = ({ selectedBreed, setSelectedBreed, breeds }: FilterItemsProps) => {
   return (

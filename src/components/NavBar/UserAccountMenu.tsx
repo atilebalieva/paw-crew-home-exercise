@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useAuthStore from "@/services/state/authStore";
+import useAuthStore from "@/state/store";
 import * as api from "@/services/api/api";
 import { User } from "lucide-react";
 import { useNavigate } from "react-router-dom";

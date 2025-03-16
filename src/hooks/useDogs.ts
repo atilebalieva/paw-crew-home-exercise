@@ -1,60 +1,33 @@
-import { useState, useEffect } from "react";
-import * as api from "@/services/api/api";
-import useAuthStore from "@/services/state/authStore";
+import { useSearchDogs } from "./useSearchDogs";
+import { useDogBreeds } from "./useDogBreeds";
+import { useGetDogs } from "./useGetDogs";
 
-export const useDogs = (selectedBreed: string, page: number, sortOrder: "asc" | "desc") => {
-  const { dogBreeds, setDogBreeds, setDogs, setAllDogs } = useAuthStore();
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [totalDogs, setTotalDogs] = useState<number>(0);
+export type SortField = "breed" | "name" | "age";
+export type SortDirection = "asc" | "desc";
+export type SortOption = `${SortField}:${SortDirection}`;
 
-  useEffect(() => {
-    const fetchDogBreeds = async () => {
-      try {
-        const breeds = await api.getDogBreeds();
-        setDogBreeds(breeds);
-      } catch (err: any) {
-        setError("Something went wrong, there is no list of dogs.");
-      }
-    };
+export const useDogs = (
+  selectedBreed: string,
+  page: number,
+  sortField: SortField = "breed",
+  sortDirection: SortDirection = "asc",
+) => {
+  const { data: breeds } = useDogBreeds();
 
-    fetchDogBreeds();
-  }, []);
+  const { data: searchDogsResults } = useSearchDogs({
+    breeds: selectedBreed ? [selectedBreed] : breeds,
+    size: 24,
+    from: (page - 1) * 24,
+    sort: `${sortField}:${sortDirection}`,
+  });
 
-  useEffect(() => {
-    const fetchDogs = async () => {
-      if (loading) return;
-      setLoading(true);
+  const { data: dogDetails } = useGetDogs(searchDogsResults?.resultIds || []);
 
-      try {
-        const dogsPerPage = 24;
-
-        const response = await api.searchDogs({
-          breeds: selectedBreed ? [selectedBreed] : dogBreeds,
-          size: dogsPerPage,
-          from: (page - 1) * dogsPerPage,
-          sort: `breed:${sortOrder}`,
-        });
-
-        if (response.resultIds.length > 0) {
-          const dogDetails = await api.getDogs(response.resultIds);
-          if (!selectedBreed) {
-            setAllDogs(dogDetails);
-          }
-          setDogs(dogDetails);
-          setTotalDogs(response.total);
-        } else {
-          setError("No dogs found for these breeds.");
-        }
-      } catch (err: any) {
-        setError("Failed to fetch dog details.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDogs();
-  }, [selectedBreed, page, sortOrder]);
-
-  return { totalDogs, error };
+  return {
+    totalDogs: searchDogsResults?.total || 0,
+    isLoading: !breeds || !searchDogsResults || !dogDetails,
+    breeds,
+    dogDetails,
+    searchDogsResults,
+  };
 };

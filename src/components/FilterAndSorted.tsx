@@ -1,4 +1,4 @@
-import { FilterAndSortItemsProps } from "@/lib/infer-types";
+import { FilterAndSortItemsProps } from "@/lib/types";
 import FilterItems from "./SearchPage/FilterItems";
 import SortItems from "./SearchPage/SortItems";
 

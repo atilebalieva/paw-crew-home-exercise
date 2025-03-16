@@ -1,28 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import useAuthStore from "@/services/state/authStore";
-import { Dog } from "@/lib/infer-types";
+import useAuthStore from "@/state/store";
+import { Dog } from "@/lib/types";
 import DogsCard from "@/components/DogsCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import EmptyState from "@/components/FavoriteDogs/EmptyState";
+import MatchButton from "@/components/FavoriteDogs/MatchButton";
 
 const FavoriteDogsPage = () => {
-  const { allDogs, favorites, favoriteDogCache } = useAuthStore();
-  const [favoriteDogs, setFavoriteDogs] = useState<Dog[]>([]);
-
-  /*   console.log("allDogs", allDogs);
-   */
-  useEffect(() => {
-    const favoriteDogsList = allDogs.filter((dog) => favorites.includes(dog.id));
-    setFavoriteDogs(favoriteDogsList);
-  }, [allDogs, favorites]);
+  const { favorites, favoriteDogCache } = useAuthStore();
 
   console.log(favorites.length);
   console.log("favorites", favorites);
 
   return (
-    <div className="container mx-auto px-4 py-8 grow">
+    <section className="container mx-auto px-4 py-8 grow">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
           <Button variant="ghost" size="sm" asChild className="mb-2 -ml-2 text-muted-foreground">
@@ -39,8 +32,9 @@ const FavoriteDogsPage = () => {
           </p>
         </div>
       </div>
+      <MatchButton />
       {favoriteDogCache.length > 0 ? <DogsCard dogs={favoriteDogCache} /> : <EmptyState />}
-    </div>
+    </section>
   );
 };
 

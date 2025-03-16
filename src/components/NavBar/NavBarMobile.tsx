@@ -4,7 +4,7 @@ import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import PawCrewLogo from "../PawCrewLogo";
 import SearchInput from "./SearchInput";
-import FavoritesMenu from "./FavoritesMenu";
+import FavoritesMenu from "./FavoritesDogsMenu";
 import UserAccountMenu from "./UserAccountMenu";
 
 const NavBarMobile = () => {

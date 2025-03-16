@@ -1,8 +1,8 @@
-import { Dog } from "@/lib/infer-types";
+import { Dog } from "@/lib/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Bone, Heart } from "lucide-react";
-import useAuthStore from "@/services/state/authStore";
+import useAuthStore from "@/state/store";
 import { v4 as uuidv4 } from "uuid";
 
 interface DogCardProps {
