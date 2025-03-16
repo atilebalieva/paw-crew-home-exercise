@@ -8,13 +8,13 @@ import SortItems from "@/components/SearchPage/SortItems";
 import { useDogs } from "@/hooks/useDogs";
 
 const SearchPage = () => {
-  const { dogs, dogBreeds } = useAuthStore();
+  const { dogs, dogBreeds, allDogs } = useAuthStore();
 
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState<number>(1);
 
-  const { allDogs, totalDogs, error } = useDogs(selectedBreed, page, sortOrder);
+  const { totalDogs, error } = useDogs(selectedBreed, page, sortOrder);
 
   const handleSortChange = (order: "asc" | "desc") => {
     setSortOrder(order);
@@ -37,7 +37,7 @@ const SearchPage = () => {
   }
 
   return (
-    <section>
+    <section className="grow">
       <Banner />
       <section className="container mx-auto px-4 py-8 mt-10">
         <div className="flex justify-between">

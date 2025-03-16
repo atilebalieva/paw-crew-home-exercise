@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import * as api from "@/services/api/api";
-import { Dog } from "@/lib/infer-types";
 import useAuthStore from "@/services/state/authStore";
 
 export const useDogs = (selectedBreed: string, page: number, sortOrder: "asc" | "desc") => {
-  const { dogBreeds, setDogBreeds, setDogs } = useAuthStore();
+  const { dogBreeds, setDogBreeds, setDogs, setAllDogs } = useAuthStore();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [totalDogs, setTotalDogs] = useState<number>(0);
-  const [allDogs, setAllDogs] = useState<Dog[]>([]);
 
   useEffect(() => {
     const fetchDogBreeds = async () => {
@@ -58,5 +56,5 @@ export const useDogs = (selectedBreed: string, page: number, sortOrder: "asc" | 
     fetchDogs();
   }, [selectedBreed, page, sortOrder]);
 
-  return { allDogs, totalDogs, error };
+  return { totalDogs, error };
 };

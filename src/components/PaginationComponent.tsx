@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { v4 as uuidv4 } from "uuid";
 
 interface PaginationComponentProps {
   totalDogs: number;
@@ -69,7 +70,7 @@ const PaginationComponent = ({ totalDogs, currentPage, onPageChange, siblingsCou
         {paginationItems.map((item, index) => {
           if (typeof item === "string") {
             return (
-              <PaginationItem key={`${item}-${index}`}>
+              <PaginationItem key={uuidv4()}>
                 <PaginationEllipsis />
               </PaginationItem>
             );

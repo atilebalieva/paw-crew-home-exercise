@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Bone, Heart } from "lucide-react";
 import useAuthStore from "@/services/state/authStore";
+import { v4 as uuidv4 } from "uuid";
 
 interface DogCardProps {
   dogs: Dog[];
@@ -23,7 +24,7 @@ const DogsCard = ({ dogs }: DogCardProps) => {
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
       {dogs.map((dog) => (
         <Card
-          key={dog.id}
+          key={uuidv4()}
           className="cursor-pointer overflow-hidden transition-all hover:shadow-xl rounded-3xl border-4 border-accent/30 hover:border-accent/50 hover:-translate-y-1 duration-300 md:w-72 xl:w-96 pt-0"
         >
           <div className="relative h-56 overflow-hidden">

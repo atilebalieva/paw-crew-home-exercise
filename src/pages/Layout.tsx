@@ -8,7 +8,7 @@ const Layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#e8f0ff] to-[#f0e6ff]">
+    <main className="min-h-screen bg-gradient-to-b from-[#e8f0ff] to-[#f0e6ff flex flex-col justify-between">
       <NavBar />
       {children}
       <Footer />
