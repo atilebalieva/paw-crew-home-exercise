@@ -25,20 +25,21 @@ const LoginForm = () => {
       email: "",
     },
   });
-  const { login, logout } = useAuthStore();
+  const { login } = useAuthStore();
   const navigate = useNavigate();
 
   const [error, setError] = useState<string | null>(null);
 
   const onSubmitForm = async (data: LoginFormData) => {
     try {
-      await api.login(data.name, data.email);
+      await api.login(data.name, data.email, navigate);
 
       login({ name: data.name, email: data.email });
+      localStorage.setItem("isAuthenticated", "true");
       navigate("/", { replace: true });
       form.reset();
     } catch (err: any) {
-      setError("Login failed");
+      setError(err?.response?.data?.message || "Login failed");
     }
   };
 

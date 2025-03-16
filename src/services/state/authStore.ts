@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Dog } from "@/lib/infer-types";
+
 interface AuthState {
   isAuthenticated: boolean;
   user: { name: string; email: string } | null;
@@ -9,6 +10,9 @@ interface AuthState {
   dogs: Dog[];
   setDogBreeds: (breeds: string[]) => void;
   setDogs: (dogs: Dog[]) => void;
+  favorites: string[];
+  addFavorite: (dogId: string) => void;
+  removeFavorite: (dogId: string) => void;
 }
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -18,8 +22,17 @@ const useAuthStore = create<AuthState>((set) => ({
   logout: () => set({ isAuthenticated: false, user: null }),
   dogBreeds: [],
   dogs: [],
+  favorites: [],
   setDogBreeds: (breeds) => set({ dogBreeds: breeds }),
   setDogs: (dogs) => set({ dogs }),
+  addFavorite: (dogId) =>
+    set((state) => ({
+      favorites: [...state.favorites, dogId],
+    })),
+  removeFavorite: (dogId) =>
+    set((state) => ({
+      favorites: state.favorites.filter((id) => id !== dogId),
+    })),
 }));
 
 export default useAuthStore;

@@ -2,18 +2,31 @@ import LoginPage from "./pages/LoginPage";
 import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./components/auth/RequireAuth";
 import Layout from "./pages/Layout";
-import Favorites from "./components/Favorites";
+import FavoriteDogsPage from "./pages/FavoriteDogsPage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
     <>
-      {/*  <Layout /> */}
-
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<Layout />} />
-          <Route path="/favorites" element={<Favorites />} />
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <SearchPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <Layout>
+                <FavoriteDogsPage />
+              </Layout>
+            }
+          />
         </Route>
       </Routes>
     </>

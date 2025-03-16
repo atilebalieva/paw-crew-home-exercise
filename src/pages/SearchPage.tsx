@@ -13,21 +13,12 @@ const SearchPage = () => {
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState<number>(1);
-  const [favorites, setFavorites] = useState<string[]>([]);
 
   const { allDogs, totalDogs, error } = useDogs(selectedBreed, page, sortOrder);
 
   const handleSortChange = (order: "asc" | "desc") => {
     setSortOrder(order);
     setPage(1);
-  };
-
-  const toggleFavorite = (id: string) => {
-    if (favorites.includes(id)) {
-      setFavorites(favorites.filter((favId) => favId !== id));
-    } else {
-      setFavorites([...favorites, id]);
-    }
   };
 
   const handleBreedFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -55,7 +46,7 @@ const SearchPage = () => {
         </div>
         {filteredDogs.length > 0 ? (
           <section>
-            <DogsCard dogs={filteredDogs} isFavorite={favorites} toggleFavorite={toggleFavorite} />
+            <DogsCard dogs={filteredDogs} />
             <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
           </section>
         ) : (
