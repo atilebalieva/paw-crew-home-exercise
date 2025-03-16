@@ -11,7 +11,8 @@ interface AuthState {
   allDogs: Dog[];
   setDogBreeds: (breeds: string[]) => void;
   setDogs: (dogs: Dog[]) => void;
-  setAllDogs: (updateFn: (prevDogs: Dog[]) => Dog[]) => void;
+  /*   setAllDogs: (updateFn: (prevDogs: Dog[]) => Dog[]) => void; */
+  setAllDogs: (dogs: Dog[]) => void;
   favorites: string[];
   addFavorite: (dogId: string) => void;
   removeFavorite: (dogId: string) => void;
@@ -28,11 +29,12 @@ const useAuthStore = create<AuthState>((set) => ({
   favorites: [],
   setDogBreeds: (breeds) => set({ dogBreeds: breeds }),
   setDogs: (dogs) => set({ dogs }),
-  setAllDogs: (updateFn) =>
+  /* setAllDogs: (updateFn) =>
     set((state) => {
       const newDogs = updateFn(state.allDogs);
       return { allDogs: newDogs };
-    }),
+    }), */
+  setAllDogs: (dogs) => set({ allDogs: dogs }),
   addFavorite: (dogId) =>
     set((state) => ({
       favorites: [...state.favorites, dogId],

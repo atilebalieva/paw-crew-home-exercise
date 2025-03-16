@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useAuthStore from "@/services/state/authStore";
 import { Dog } from "@/lib/infer-types";
 import DogsCard from "@/components/SearchPage/DogsCard";
