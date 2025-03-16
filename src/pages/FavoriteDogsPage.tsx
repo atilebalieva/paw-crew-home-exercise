@@ -1,23 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import useAuthStore from "@/services/state/authStore";
 import { Dog } from "@/lib/infer-types";
-import DogsCard from "@/components/SearchPage/DogsCard";
+import DogsCard from "@/components/DogsCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import EmptyState from "@/components/FavoriteDogs/EmptyState";
 
 const FavoriteDogsPage = () => {
-  const { allDogs, favorites } = useAuthStore();
+  const { allDogs, favorites, favoriteDogCache } = useAuthStore();
   const [favoriteDogs, setFavoriteDogs] = useState<Dog[]>([]);
 
+  /*   console.log("allDogs", allDogs);
+   */
   useEffect(() => {
     const favoriteDogsList = allDogs.filter((dog) => favorites.includes(dog.id));
     setFavoriteDogs(favoriteDogsList);
   }, [allDogs, favorites]);
 
   console.log(favorites.length);
-  console.log("favoriteDogs", favoriteDogs);
+  console.log("favorites", favorites);
 
   return (
     <div className="container mx-auto px-4 py-8 grow">
@@ -31,13 +33,13 @@ const FavoriteDogsPage = () => {
           </Button>
           <h1 className="text-3xl font-bold tracking-tight">My Favorite Dogs</h1>
           <p className="text-muted-foreground mt-1">
-            {favoriteDogs.length > 0
-              ? `You have ${favoriteDogs.length} favorite ${favoriteDogs.length === 1 ? "dog" : "dogs"}`
+            {favoriteDogCache.length > 0
+              ? `You have ${favoriteDogCache.length} favorite ${favoriteDogCache.length === 1 ? "dog" : "dogs"}`
               : "Collect your favorite dogs here"}
           </p>
         </div>
       </div>
-      {favoriteDogs.length > 0 ? <DogsCard dogs={favoriteDogs} /> : <EmptyState />}
+      {favoriteDogCache.length > 0 ? <DogsCard dogs={favoriteDogCache} /> : <EmptyState />}
     </div>
   );
 };
