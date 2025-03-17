@@ -10,20 +10,15 @@ import useAuthStore from "@/state/store";
 import * as api from "@/services/api/api";
 import { User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useLogout } from "@/hooks/useLogout";
 
 const UserAccountMenu = () => {
   const navigate = useNavigate();
-  const { logout } = useAuthStore();
+  const logoutMutation = useLogout();
 
   const handleSignOut = async () => {
-    try {
-      await api.logout();
-
-      logout();
-      navigate("/login", { replace: true });
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
+    logoutMutation.mutate();
+    navigate("/login", { replace: true });
   };
 
   return (
