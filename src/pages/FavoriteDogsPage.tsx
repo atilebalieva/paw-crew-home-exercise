@@ -23,6 +23,7 @@ const FavoriteDogsPage = () => {
       onSuccess: (data) => {
         const matchId = data.match;
         const matchedDogDetails = favoriteDogCache.find((dog) => dog.id === matchId);
+
         if (matchedDogDetails) {
           setMatchedDog(matchedDogDetails);
         }
@@ -32,6 +33,8 @@ const FavoriteDogsPage = () => {
       }, */
     });
   };
+
+  console.log(matchedDog);
   return (
     <section className="container mx-auto px-4 py-8 grow">
       <FavoritesDescription favoriteDogCache={favoriteDogCache} />

@@ -12,9 +12,6 @@ api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("isAuthenticated");
-      sessionStorage.clear();
-      history.replaceState(null, "", "/login");
       window.location.href = "/login";
     }
     return Promise.reject(error);
@@ -35,4 +32,8 @@ export const apiClient = {
   matchDogs: (dogIds: string[]) => api.post("/dogs/match", dogIds),
 
   getLocations: (zipCodes: string[]) => api.post("/locations", zipCodes),
+
+  getSearchLocations: (queryParams: Record<string, any>) => api.post("/locations/search", queryParams),
+
+  getLocationByZipCode: (zipCodeSrearch: string[]) => api.post("/locations", zipCodeSrearch),
 };
