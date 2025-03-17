@@ -3,18 +3,23 @@ import { Heart, Sparkles, PawPrintIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const MatchButton = () => {
+interface MatchButtonProps {
+  handleClick: () => void;
+  disabled?: boolean;
+}
+
+const MatchButton = ({ handleClick, disabled = false }: MatchButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [sparklePosition, setSparklePosition] = useState({ x: 0, y: 0 });
 
-  const handleClick = () => {
+  /* const handleClick = () => {
     setIsLoading(true);
 
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
-  };
+  }; */
 
   useEffect(() => {
     if (isHovered) {
@@ -33,7 +38,6 @@ const MatchButton = () => {
     <div className="flex items-center justify-center p-8">
       <div className="relative group" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
-
         <Button
           onClick={handleClick}
           disabled={isLoading}

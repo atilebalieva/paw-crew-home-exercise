@@ -6,6 +6,7 @@ export const useLogout = () => {
     mutationFn: () => apiClient.logout(),
     onSuccess: () => {
       localStorage.removeItem("isAuthenticated");
+      sessionStorage.clear();
     },
   });
 };
