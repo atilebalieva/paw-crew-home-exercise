@@ -1,6 +1,3 @@
-# Find Your Perfect Canine Companion
----
-
 ## Table of Contents
 
 - [Installation](#installation)
