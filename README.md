@@ -1,16 +1,7 @@
-# 🐶 Dogs - Find Your Perfect Canine Companion
-
-## 📌 Project Overview
-
-Dogs is a web application built with **React** that helps users **discover and connect with adoptable dogs**. The platform offers three core features:
-
-1. **Favorite Dogs** – Browse and save dogs you love to your personal collection.
-2. **Match Finder** – Get personalized dog recommendations based on your preferences.
-3. **Location Search** – Find adoptable dogs near you with filtering options.
-
+# Find Your Perfect Canine Companion
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Installation](#installation)
 - [Features](#features)
@@ -20,16 +11,16 @@ Dogs is a web application built with **React** that helps users **discover and c
 
 ---
 
-## 🛠 Installation
+## Installation
 
-### **📌 Prerequisites**
+### **Prerequisites**
 
 Ensure you have the following installed:
 
 - **[Node.js (v16.0 or higher)](https://nodejs.org/)**
 - **[Git](https://git-scm.com/)**
 
-### **🚀 Setup Instructions**
+### **Setup Instructions**
 
 1️⃣ **Clone the repository**
 
