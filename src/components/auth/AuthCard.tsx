@@ -8,10 +8,10 @@ type CardWrappersProps = {
 
 const AuthCard = ({ cardTitle, children }: CardWrappersProps) => {
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card>
       <CardHeader className="space-y-2">
         <CardTitle className="flex flex-col items-center justify-center gap-2">
-          <PawCrewLogo />
+          <PawCrewLogo color="black" />
         </CardTitle>
         <CardDescription className="text-center text-2xl font-medium">{cardTitle}</CardDescription>
       </CardHeader>

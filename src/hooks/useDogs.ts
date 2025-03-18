@@ -7,7 +7,10 @@ import { useSearchDogs } from "./useSearchDogs";
 import { useGetDogs } from "./useGetDogs";
 
 export type SortField = "breed" | "age" | "name" | "date_added";
+
 export type SortDirection = "asc" | "desc";
+
+const PAGE_SIZE = 24;
 
 export const useDogs = (
   selectedBreed: string,
@@ -72,3 +75,4 @@ export const useDogs = (
     searchDogsResults,
   };
 };
+export const DOGS_PAGE_SIZE = PAGE_SIZE;

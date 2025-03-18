@@ -1,26 +1,30 @@
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { v4 as uuidv4 } from "uuid";
+
 export interface FilterItemsProps {
   selectedBreed: string;
-  setSelectedBreed: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  setSelectedBreed: (value: string) => void;
   breeds: string[];
 }
 
 const FilterItems = ({ selectedBreed, setSelectedBreed, breeds }: FilterItemsProps) => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 bg-secondary/20 rounded-3xl border-2 border-dashed border-secondary/50">
-      <div className="w-full md:w-64">
-        <label className="text-xl font-medium text-primary mb-1 block">Woof! Find by breed</label>
-        <select
-          value={selectedBreed}
-          onChange={setSelectedBreed}
-          className="bg-white p-2 rounded-xl border-primary/20 border-2 w-2xs"
-        >
-          <option value="">All Breeds</option>
-          {breeds.map((breed: string, index) => (
-            <option value={breed} key={`${breed}-${index}`}>
-              {breed}
-            </option>
-          ))}
-        </select>
+    <div className="rounded-lg shadow-sm">
+      <div className="space-y-2 md:w-64">
+        <label className="text-lg font-medium text-gray-700 text-white">Woof! Find by breed</label>
+        <Select value={selectedBreed} onValueChange={setSelectedBreed}>
+          <SelectTrigger className="w-full border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:ring-offset-1">
+            <SelectValue placeholder="Select a breed" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Breeds</SelectItem>
+            {breeds.map((breed: string, index) => (
+              <SelectItem value={breed} key={uuidv4()}>
+                {breed}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

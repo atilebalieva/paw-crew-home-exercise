@@ -2,24 +2,18 @@ import { useState, useEffect } from "react";
 import { Heart, Sparkles, PawPrintIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Dog } from "@/lib/types";
 
 interface MatchButtonProps {
   handleClick: () => void;
   disabled?: boolean;
+  matchedDog: Dog | null;
+  isLoading: boolean;
 }
 
-const MatchButton = ({ handleClick, disabled = false }: MatchButtonProps) => {
-  const [isLoading, setIsLoading] = useState(false);
+const MatchButton = ({ handleClick, disabled = false, matchedDog, isLoading }: MatchButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [sparklePosition, setSparklePosition] = useState({ x: 0, y: 0 });
-
-  /* const handleClick = () => {
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }; */
 
   useEffect(() => {
     if (isHovered) {
@@ -35,7 +29,7 @@ const MatchButton = ({ handleClick, disabled = false }: MatchButtonProps) => {
   }, [isHovered]);
 
   return (
-    <div className="flex items-center justify-center p-8">
+    <div className="flex items-center justify-center p-8 mb-5 lg:mb-8">
       <div className="relative group" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
         <Button
@@ -59,7 +53,9 @@ const MatchButton = ({ handleClick, disabled = false }: MatchButtonProps) => {
             ) : (
               <>
                 <Heart className={`h-5 w-5 ${isHovered ? "animate-heartbeat" : ""}`} />
-                <span className="text-lg font-semibold">Find your best Match</span>
+                <span className="text-lg font-semibold">
+                  {!matchedDog ? "Find your best Match" : "Find another match"}
+                </span>
               </>
             )}
           </div>

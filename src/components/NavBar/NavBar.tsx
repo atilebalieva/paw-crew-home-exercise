@@ -1,29 +1,25 @@
 import { Link } from "react-router-dom";
-import SearchInput from "./SearchInput";
 import NavBarMobile from "./NavBarMobile";
 import PawCrewLogo from "../PawCrewLogo";
 import FavoritesMenu from "./FavoritesDogsMenu";
-import UserAccountMenu from "./UserAccountMenu";
+import SignOut from "./SignOut";
 
 const NavBar = () => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b shadow-sm" /* style={{ backgroundColor: "#6504b5" }} */>
-      <div className="w-full bg-primary">
-        <div className="container mx-auto flex h-16 items-center px-4">
+    <header className="sticky top-0 z-50 w-full border-b shadow-sm bg-gradient-to-b from-gray-900 to-gray-800">
+      <div className="w-full">
+        <div className="container mx-auto flex h-16 gap-10 items-center px-4">
           <NavBarMobile />
-          <div className="flex items-center gap-2 mr-4">
-            <Link to="/" className="flex items-center gap-2">
-              <PawCrewLogo />
+          <div className="mr-4">
+            <Link to="/">
+              <PawCrewLogo color="white" />
             </Link>
           </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <FavoritesMenu style={"flex items-center gap-1.5 text-sm font-medium text-white hover:text-white/80"} />
+          <nav className="hidden md:flex">
+            <FavoritesMenu style={"flex items-center gap-1.5 text-md font-medium text-white hover:text-white/80"} />
           </nav>
-          <div className="flex items-center gap-8 ml-auto">
-            <div className="hidden md:flex relative w-full max-w-sm items-center">
-              <SearchInput style="absolute left-2.5 top-2.5 h-4 w-4" />
-            </div>
-            <UserAccountMenu />
+          <div className="hidden md:flex ml-auto text-white ">
+            <SignOut />
           </div>
         </div>
       </div>

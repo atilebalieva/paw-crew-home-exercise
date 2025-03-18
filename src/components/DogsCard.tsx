@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Bone, Heart } from "lucide-react";
 import useAuthStore from "@/state/store";
 import { v4 as uuidv4 } from "uuid";
+import { BackgroundGradient } from "./ui/background-gradient";
 
 interface DogCardProps {
   dogs: Dog[];
@@ -21,40 +22,44 @@ const DogsCard = ({ dogs }: DogCardProps) => {
   };
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <>
+      {" "}
       {dogs.map((dog) => (
-        <Card
-          key={uuidv4()}
-          className="cursor-pointer overflow-hidden transition-all hover:shadow-xl rounded-3xl border-4 border-accent/30 hover:border-accent/50 hover:-translate-y-1 duration-300 md:w-72 xl:w-96 pt-0"
-        >
-          <div className="relative h-56 overflow-hidden">
-            <img src={dog.img} alt={dog.breed} className="w-full h-full object-cover" />
-            <Button
-              variant="ghost"
-              className={`absolute top-3 right-3 rounded-full bg-white shadow-lg ${
-                favorites.includes(dog.id) ? "text-destructive" : "text-muted-foreground"
-              }`}
-              onClick={() => toggleFavorite(dog)}
-            >
-              <Heart className={favorites.includes(dog.id) ? "fill-current" : ""} size={20} />
-            </Button>
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-              <h2 className="text-xl font-bold text-white">{dog.name}</h2>
+        <BackgroundGradient key={uuidv4()} className="rounded-[22px] bg-lime-950">
+          <Card className="group relative cursor-pointer overflow-hidden rounded-3xl border border-indigo-700 bg-indigo-950/60 backdrop-blur-lg shadow-lg transition-all duration-300 hover:scale-105 hover:border-indigo-500 pt-0">
+            <div className="relative h-60 overflow-hidden rounded-t-3xl">
+              <img
+                src={dog.img}
+                alt={dog.breed}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <Button
+                variant="ghost"
+                className={`absolute top-4 right-4 rounded-full p-5 bg-white/20 backdrop-blur-md shadow-md transition-all duration-300 hover:bg-white/40 ${
+                  favorites.includes(dog.id) ? "text-red-500" : "text-white"
+                }`}
+                onClick={() => toggleFavorite(dog)}
+              >
+                <Heart className={`${favorites.includes(dog.id) ? "fill-current" : ""}`} size={36} />
+              </Button>
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                <h2 className="text-3xl font-bold text-white drop-shadow-md">{dog.name}</h2>
+              </div>
             </div>
-          </div>
-          <CardContent className="pt-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Bone className="h-4 w-4 text-primary" />
-              <p className="font-medium text-foreground text-lg">{dog.breed}</p>
-            </div>
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span className="px-3 py-1 text-lg">Age: {dog.age}</span>
-              <span className="px-3 py-1 text-lg">ZIP: {dog.zip_code}</span>
-            </div>
-          </CardContent>
-        </Card>
+            <CardContent className="p-3">
+              <div className="flex items-center gap-3 mb-2">
+                <Bone className="h-5 w-5 text-yellow-400 drop-shadow-sm" />
+                <p className="font-semibold text-white text-xl">{dog.breed}</p>
+              </div>
+              <div className="flex justify-between text-lg text-gray-300">
+                <span className="py-1  rounded-lg shadow-sm">🐶 Age: {dog.age}</span>
+                <span className="px-3 py-1  rounded-lg shadow-sm">📍 ZIP: {dog.zip_code}</span>
+              </div>
+            </CardContent>
+          </Card>
+        </BackgroundGradient>
       ))}
-    </section>
+    </>
   );
 };
 

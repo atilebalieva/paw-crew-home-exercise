@@ -1,7 +1,5 @@
 import NavBar from "@/components/NavBar/NavBar";
-import Footer from "@/components/Footer";
-import { Toaster } from "@/components/ui/sonner";
-import { BoxesCore } from "@/components/ui/background-boxes";
+import Footer from "@/components/Footer/Footer";
 
 const Layout = ({
   children,
@@ -9,10 +7,8 @@ const Layout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#e8f0ff] to-[#f0e6ff flex flex-col justify-between">
-      {/*    <BoxesCore /> */}
+    <main className="min-h-screen font-playfair bg-gradient-to-t from-gray-900 to-gray-800 flex flex-col justify-between">
       <NavBar />
-      {/*     <Toaster /> */}
       {children}
       <Footer />
     </main>
