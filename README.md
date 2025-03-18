@@ -3,7 +3,6 @@
 - [Installation](#installation)
 - [Features](#features)
 - [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
 - [API Integration](#api-integration)
 
 ---
