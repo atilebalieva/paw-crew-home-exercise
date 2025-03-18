@@ -1,15 +1,7 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectGroup,
-  SelectLabel,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup } from "@/components/ui/select";
 import { SortDirection, SortField } from "@/hooks/useDogs";
 
-interface SortItemsProps {
+interface SortByDirectionProps {
   currentSort: {
     field: SortField;
     direction: SortDirection;
@@ -17,7 +9,7 @@ interface SortItemsProps {
   onSortChange: (field: SortField, direction: SortDirection) => void;
 }
 
-const SortItems = ({ currentSort, onSortChange }: SortItemsProps) => {
+const SortByDirection = ({ currentSort, onSortChange }: SortByDirectionProps) => {
   const handleSortChange = (value: string) => {
     const [field, direction] = value.split(":") as [SortField, SortDirection];
     onSortChange(field, direction);
@@ -52,4 +44,4 @@ const SortItems = ({ currentSort, onSortChange }: SortItemsProps) => {
   );
 };
 
-export default SortItems;
+export default SortByDirection;

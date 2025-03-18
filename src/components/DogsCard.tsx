@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Bone, Heart } from "lucide-react";
 import useAuthStore from "@/state/store";
 import { v4 as uuidv4 } from "uuid";
-import { BackgroundGradient } from "./ui/background-gradient";
 
 interface DogCardProps {
   dogs: Dog[];
@@ -25,7 +24,10 @@ const DogsCard = ({ dogs }: DogCardProps) => {
     <>
       {" "}
       {dogs.map((dog) => (
-        <Card className="group relative overflow-hidden rounded-[8px] border border-indigo-700 bg-indigo-950/60 backdrop-blur-lg shadow-lg transition-all duration-300 hover:scale-105 hover:border-indigo-500 pt-0">
+        <Card
+          key={uuidv4()}
+          className="group relative overflow-hidden rounded-[8px] border border-indigo-700 bg-indigo-950/60 backdrop-blur-lg shadow-lg transition-all duration-300 hover:scale-105 hover:border-indigo-500 pt-0"
+        >
           <div className="relative h-60 overflow-hidden rounded-[8px]">
             <img
               src={dog.img}
