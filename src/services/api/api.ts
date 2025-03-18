@@ -33,7 +33,5 @@ export const apiClient = {
 
   getLocations: (zipCodes: string[]) => api.post("/locations", zipCodes),
 
-  getLocationByZipCode: (zipCodeSrearch: string[]) => api.post("/locations", zipCodeSrearch),
-
   getSearchLocations: (queryParams: Record<string, any> | null) => api.post("/locations/search", queryParams),
 };
