@@ -3,9 +3,9 @@ import Pagination from "@/components/PaginationComponent";
 import DogsCard from "@/components/DogsCard";
 import FilterItems from "@/components/SearchPage/FilterItems";
 import SortItems from "@/components/SearchPage/SortItems";
-import SearchLocation from "@/components/SearchPage/SearchLocation";
 import { useDogs, SortField, SortDirection } from "@/hooks/useDogs";
 import IsLoading from "@/components/IsLoading";
+import SearchHeader from "@/components/SearchPage/SearchHeader";
 
 const SearchPage = () => {
   const [selectedBreed, setSelectedBreed] = useState<string>("");
@@ -49,19 +49,16 @@ const SearchPage = () => {
   return (
     <section className="grow mb-8">
       <section className="container mx-auto px-4 py-8 mt-10">
-        <SearchLocation onSearch={handleLocationSearch} />
-
-        <div className="flex justify-between mb-6">
+        <SearchHeader />
+        <div className="flex justify-between mb-6 ">
           <FilterItems selectedBreed={selectedBreed} setSelectedBreed={handleBreedFilter} breeds={breeds} />
           <SortItems currentSort={{ field: sortField, direction: sortDirection }} onSortChange={handleSortChange} />
         </div>
-
         {locationSearchTerm && (
           <div className="mb-4 text-sm text-gray-600">
             <p>Showing dogs near "{locationSearchTerm}".</p>
           </div>
         )}
-
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 mb-8">
           {dogDetails.length > 0 ? (
             <DogsCard dogs={dogDetails} />

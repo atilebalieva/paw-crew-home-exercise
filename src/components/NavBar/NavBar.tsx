@@ -6,7 +6,7 @@ import SignOut from "./SignOut";
 
 const NavBar = () => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b shadow-sm bg-gradient-to-b from-gray-900 to-gray-800">
+    <header className="sticky top-0 z-50 w-full shadow-sm bg-gradient-to-b from-gray-900 to-gray-800">
       <div className="w-full">
         <div className="container mx-auto flex h-16 gap-10 items-center px-4">
           <NavBarMobile />

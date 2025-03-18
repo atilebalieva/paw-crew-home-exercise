@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Heart, Sparkles, PawPrintIcon } from "lucide-react";
+import { Sparkles, PawPrintIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Dog } from "@/lib/types";
@@ -52,7 +52,6 @@ const MatchButton = ({ handleClick, disabled = false, matchedDog, isLoading }: M
               </>
             ) : (
               <>
-                <Heart className={`h-5 w-5 ${isHovered ? "animate-heartbeat" : ""}`} />
                 <span className="text-lg font-semibold">
                   {!matchedDog ? "Find your best Match" : "Find another match"}
                 </span>

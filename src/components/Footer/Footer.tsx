@@ -6,7 +6,7 @@ import FooterMenuItem from "./FooterMenuItem";
 
 const Footer = () => {
   return (
-    <footer className="w-full text-white border-t">
+    <footer className="w-full text-white">
       <div className="container mx-auto px-4 md:px-6 py-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8 ">
           <div className="flex flex-col space-y-4">
@@ -23,8 +23,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="space-y-4">
-            <h4 className="text-sm font-medium">Adoption</h4>
-            <p className="text-sm">Every pet deserves a loving home. Consider adoption and change a life forever.</p>
+            <p className="text-md">Every pet deserves a loving home. Consider adoption and change a life forever.</p>
             <ul className="space-y-2 text-sm">
               <FooterMenuItem link={"/"} label={"Available Dogs"} />
               <FooterMenuItem link={"#"} label={"Adoption Process"} />
