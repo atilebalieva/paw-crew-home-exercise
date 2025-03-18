@@ -6,13 +6,14 @@ import EmptyState from "@/components/FavoriteDogs/EmptyState";
 import MatchButton from "@/components/FavoriteDogs/MatchButton";
 import { useMatchDogs } from "@/hooks/useMatchDogs";
 import FavoritesDescription from "@/components/FavoriteDogs/FavoritesDescription";
-import MatchDog from "@/components/FavoriteDogs/MatchedDog";
+import MatchDogModal from "@/components/FavoriteDogs/MatchDogModal";
 
 const FavoriteDogsPage = () => {
   const { favorites, favoriteDogCache, addFavorite } = useAuthStore();
   const { mutate: matchDogs } = useMatchDogs();
   const [matchedDog, setMatchedDog] = useState<Dog | null>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMatch = () => {
     if (favorites.length === 0) {
@@ -29,6 +30,7 @@ const FavoriteDogsPage = () => {
         if (matchedDogDetails) {
           setMatchedDog(matchedDogDetails);
           addFavorite(matchedDogDetails);
+          setIsModalOpen(true);
         }
         setIsLoading(false);
       },
@@ -45,7 +47,7 @@ const FavoriteDogsPage = () => {
         <MatchButton handleClick={handleMatch} matchedDog={matchedDog} isLoading={isLoading} />
       )}
 
-      {matchedDog && <MatchDog matchedDog={matchedDog} />}
+      {isModalOpen && matchedDog && <MatchDogModal matchedDog={matchedDog} onClose={() => setIsModalOpen(false)} />}
 
       {favoriteDogCache.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 mb-8">

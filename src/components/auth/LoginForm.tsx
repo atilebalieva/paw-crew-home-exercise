@@ -74,7 +74,7 @@ const LoginForm = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full mt-4">
+                <Button type="submit" className="w-full mt-4 cursor-pointer">
                   Login
                 </Button>
               </form>

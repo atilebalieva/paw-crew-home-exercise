@@ -11,7 +11,6 @@ const FilterItems = ({ selectedBreed, setSelectedBreed, breeds }: FilterItemsPro
   return (
     <div className="rounded-lg shadow-sm">
       <div className="space-y-2 md:w-64">
-        <label className="text-lg font-medium text-gray-700 text-white">Woof! Find by breed</label>
         <Select value={selectedBreed} onValueChange={setSelectedBreed}>
           <SelectTrigger className="w-full border-gray-200 bg-white focus:ring-2 focus:ring-primary focus:ring-offset-1">
             <SelectValue placeholder="Select a breed" />
