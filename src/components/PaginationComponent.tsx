@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import {
   Pagination,
   PaginationContent,
@@ -7,7 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { v4 as uuidv4 } from "uuid";
+import { DOGS_PAGE_SIZE } from "@/hooks/useDogs";
 
 interface PaginationComponentProps {
   totalDogs: number;
@@ -17,7 +18,7 @@ interface PaginationComponentProps {
 }
 
 const PaginationComponent = ({ totalDogs, currentPage, onPageChange, siblingsCount = 1 }: PaginationComponentProps) => {
-  const totalPages = Math.ceil(totalDogs / 25);
+  const totalPages = Math.ceil(totalDogs / DOGS_PAGE_SIZE);
 
   const generatePagination = () => {
     const pagination: (number | string)[] = [1];
@@ -59,7 +60,7 @@ const PaginationComponent = ({ totalDogs, currentPage, onPageChange, siblingsCou
 
   return (
     <Pagination>
-      <PaginationContent>
+      <PaginationContent className="text-white">
         <PaginationItem>
           <PaginationPrevious
             onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
@@ -67,7 +68,7 @@ const PaginationComponent = ({ totalDogs, currentPage, onPageChange, siblingsCou
           />
         </PaginationItem>
 
-        {paginationItems.map((item, index) => {
+        {paginationItems.map((item) => {
           if (typeof item === "string") {
             return (
               <PaginationItem key={uuidv4()}>
@@ -85,7 +86,7 @@ const PaginationComponent = ({ totalDogs, currentPage, onPageChange, siblingsCou
                   onPageChange(item as number);
                 }}
                 isActive={currentPage === item}
-                className="cursor-pointer"
+                className={`${currentPage === item ? "text-black" : "text-white"} cursor-pointer`}
               >
                 {item}
               </PaginationLink>

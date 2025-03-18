@@ -8,6 +8,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import AuthCard from "./AuthCard";
 import { useNavigate } from "react-router-dom";
+import { BackgroundGradient } from "../ui/background-gradient";
 
 const LoginSchema = z.object({
   name: z.string().min(3, { message: "Please add name with at least 3 characters" }),
@@ -41,43 +42,47 @@ const LoginForm = () => {
   };
 
   return (
-    <AuthCard cardTitle={"Login"}>
-      <div className="w-full">
-        <FormProvider {...form}>
-          <form onSubmit={form.handleSubmit(onSubmitForm)}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem className="mb-5">
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter your name" {...field} />
-                  </FormControl>
-                  <FormMessage>{form.formState.errors.name?.message}</FormMessage>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="mb-2">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="john@gmail.com" {...field} type="email" />
-                  </FormControl>
-                  <FormMessage>{form.formState.errors.email?.message}</FormMessage>
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full mt-4">
-              Login
-            </Button>
-          </form>
-        </FormProvider>
-      </div>
-    </AuthCard>
+    <section className="w-full max-w-md mx-auto">
+      <BackgroundGradient className="rounded-[22px] bg-lime-950">
+        <AuthCard cardTitle={"Login"}>
+          <div className="w-full">
+            <FormProvider {...form}>
+              <form onSubmit={form.handleSubmit(onSubmitForm)}>
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem className="mb-5">
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter your name" {...field} />
+                      </FormControl>
+                      <FormMessage>{form.formState.errors.name?.message}</FormMessage>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="mb-2">
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="john@gmail.com" {...field} type="email" />
+                      </FormControl>
+                      <FormMessage>{form.formState.errors.email?.message}</FormMessage>
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full mt-4">
+                  Login
+                </Button>
+              </form>
+            </FormProvider>
+          </div>
+        </AuthCard>
+      </BackgroundGradient>
+    </section>
   );
 };
 

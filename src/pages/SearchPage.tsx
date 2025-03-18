@@ -5,7 +5,7 @@ import FilterItems from "@/components/SearchPage/FilterItems";
 import SortItems from "@/components/SearchPage/SortItems";
 import SearchLocation from "@/components/SearchPage/SearchLocation";
 import { useDogs, SortField, SortDirection } from "@/hooks/useDogs";
-import Loading from "@/components/Loading";
+import IsLoading from "@/components/IsLoading";
 
 const SearchPage = () => {
   const [selectedBreed, setSelectedBreed] = useState<string>("");
@@ -22,8 +22,6 @@ const SearchPage = () => {
     locationSearchTerm,
   );
 
-  /*  const { totalDogs = 0, breeds = [], dogDetails = [] } = data || {}; */
-
   const handleLocationSearch = (searchTerm: string) => {
     setLocationSearchTerm(searchTerm);
     setPage(1);
@@ -35,23 +33,25 @@ const SearchPage = () => {
     setPage(1);
   };
 
-  const handleBreedFilter = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedBreed(event.target.value);
+  const handleBreedFilter = (value: string) => {
+    setSelectedBreed(value === "all" ? "" : value);
     setPage(1);
   };
 
   const handlePageChange = (newPage: number) => {
+    console.log("SearchPage: Changing to page", newPage);
+
     setPage(newPage);
   };
 
-  if (isLoading) return <div className="flex justify-center items-center h-64">Loading...</div>;
+  if (isLoading) return <IsLoading status={isLoading} />;
 
   return (
-    <section className="grow">
+    <section className="grow mb-8">
       <section className="container mx-auto px-4 py-8 mt-10">
         <SearchLocation onSearch={handleLocationSearch} />
 
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-6">
           <FilterItems selectedBreed={selectedBreed} setSelectedBreed={handleBreedFilter} breeds={breeds} />
           <SortItems currentSort={{ field: sortField, direction: sortDirection }} onSortChange={handleSortChange} />
         </div>
@@ -62,7 +62,7 @@ const SearchPage = () => {
           </div>
         )}
 
-        <section>
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 mb-8">
           {dogDetails.length > 0 ? (
             <DogsCard dogs={dogDetails} />
           ) : (
@@ -70,8 +70,8 @@ const SearchPage = () => {
               <p className="text-lg text-gray-600">No dogs found matching your search criteria.</p>
             </div>
           )}
-          <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
         </section>
+        <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
       </section>
     </section>
   );
