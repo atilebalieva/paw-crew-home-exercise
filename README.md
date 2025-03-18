@@ -21,17 +21,19 @@ Ensure you have the following installed:
 1️⃣ **Clone the repository**
 
 ```sh
-git clone https://github.com/your-username/dogs-project.git
-cd dogs-project
+git clone https://github.com/your-username/paw-pals-fetch-home-exercise
+cd paw-pals-fetch-home-exercise
 ```
 ```sh
 npm install
-# OR
+```
+```sh
 yarn install
 ```
 ```sh
 npm run dev
-# OR
+```
+```sh
 yarn dev
 ```
 ## 4. Access the application
