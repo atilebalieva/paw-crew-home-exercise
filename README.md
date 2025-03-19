@@ -43,7 +43,7 @@ Open your browser and navigate to [http://localhost:5173](http://localhost:5173)
 
 ### Frontend Framework
 
-- React 19 - Component-based UI library
+- React 18 - Component-based UI library
 - TypeScript - Static type checking
 - Vite - Fast build tool and development server
 
