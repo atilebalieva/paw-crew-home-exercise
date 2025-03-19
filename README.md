@@ -39,18 +39,6 @@ Open your browser and navigate to [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## Features
-
-### Browse & Favorite
-
-- Paginated gallery of adoptable dogs
-- Filtering by breed, age, and name
-- Save favorites to your personal collection
-- Find a matched dog
-- Find dogs by ZIP code, city, or state
-
----
-
 ## Technology Stack
 
 ### Frontend Framework
@@ -85,7 +73,6 @@ The application integrates with the Dogs API to fetch and manage dog data:
 
 - **Search Endpoint**: Retrieves dogs based on filters and pagination
 - **Dog Details**: Fetches detailed information for individual dogs
-- **Location Services**: Converts locations to searchable geographic coordinates
 - **Authentication**: Manages user sessions and favorite lists
 
 ```

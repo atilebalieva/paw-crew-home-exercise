@@ -99,14 +99,6 @@ export const useDogs = (selectedBreed: string, page: number, sortField: SortFiel
     }
   }, [isLoadingMoreCities, refetchLocations]);
 
-  console.log("Query Params Sent:", {
-    breeds: selectedBreed ? [selectedBreed] : breeds,
-    size: PAGE_SIZE,
-    from: (page - 1) * PAGE_SIZE,
-    sort: `${sortField}:${sortDirection}`,
-    zipCodes: filteredZipCodes,
-  });
-
   const { data: searchDogsResults, isLoading: searchLoading } = useSearchDogs({
     breeds: selectedBreed ? [selectedBreed] : breeds,
     size: PAGE_SIZE,
