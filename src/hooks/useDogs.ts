@@ -13,16 +13,12 @@ export const useDogs = (selectedBreed: string, page: number, sortField: SortFiel
 
   const { data: searchDogsResults } = useSearchDogs({
     breeds: selectedBreed ? [selectedBreed] : breeds,
-    /*     zipCodes: selectedZipCode ? [selectedZipCode] : [], */
     size: 24,
     from: (page - 1) * 24,
     sort: `${sortField}:${sortDirection}`,
   });
 
   const { data: dogsDetails } = useGetDogs(searchDogsResults?.resultIds || []);
-  /* 
-  const { data: zipCodeResults } = useZipCodeSearch(searchType === "zip" ? zipCodes : []);
-  const { data: locationResults } = useLocationSearch(searchType !== "zip" ? locationParams : null); */
 
   return {
     totalDogs: searchDogsResults?.total || 0,

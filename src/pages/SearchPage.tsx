@@ -4,16 +4,18 @@ import DogsCard from "@/components/DogsCard";
 import BreedFilter from "@/components/SearchPage/BreedFilter";
 import SortByDirection from "@/components/SearchPage/SortByDirection";
 import { useDogs, SortField, SortDirection } from "@/hooks/useDogs";
-import IsLoading from "@/components/Loader";
+import Loader from "@/components/Loader";
 import SearchHeader from "@/components/SearchPage/SearchHeader";
-import LocationSearch from "@/components/SearchPage/LocationSearch/LocationSearch";
+import { useGetDogs } from "@/hooks/useGetDogs";
 import { useLocations } from "@/hooks/useLocations";
+import { useLocationSearch } from "@/hooks/useLocationSearch";
 
 const SearchPage = () => {
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sortField, setSortField] = useState<SortField>("breed");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [page, setPage] = useState<number>(1);
+  const [locationFilteredDogIds, setLocationFilteredDogIds] = useState<string[]>([]);
 
   const { totalDogs, breeds, dogsDetails, isLoading } = useDogs(selectedBreed, page, sortField, sortDirection);
 
@@ -23,13 +25,20 @@ const SearchPage = () => {
     setPage(1);
   };
 
-  const uniqueZipCodes = [...new Set(dogsDetails.map((dog: any) => dog.zip_code))];
-  console.log("uniqueZipCodes", uniqueZipCodes);
+  const uniqueZipCodes = [...new Set<string>(dogsDetails.map((dog: Dog) => dog.zip_code))];
 
-  const { data: zipCodes } = useLocations(uniqueZipCodes);
-
-  console.log(dogsDetails);
   console.log(uniqueZipCodes);
+
+  const { data: location } = useLocations(uniqueZipCodes);
+
+  const { data: locationSearch } = useLocationSearch({
+    size: 10000,
+  });
+
+  console.log({ locationSearch });
+  /*
+  console.log(dogsDetails);
+  console.log(uniqueZipCodes); */
 
   const handleBreedFilter = (value: string) => {
     setSelectedBreed(value === "all" ? "" : value);
@@ -40,7 +49,7 @@ const SearchPage = () => {
     setPage(newPage);
   };
 
-  if (isLoading) return <IsLoading status={isLoading} />;
+  if (isLoading) return <Loader status={isLoading} />;
 
   return (
     <section className="grow mb-8">
@@ -53,10 +62,8 @@ const SearchPage = () => {
             onSortChange={handleSortChange}
           />
         </div>
-        <div>
-          <LocationSearch />
-        </div>
-
+        {/*         <LocationSearch onFilteredDogsChange={handleLocationFilteredDogsChange} />
+         */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 mb-8">
           {dogsDetails.length > 0 ? (
             <DogsCard dogs={dogsDetails} />
