@@ -6,18 +6,20 @@ import SortByDirection from "@/components/SearchPage/SortByDirection";
 import { useDogs, SortField, SortDirection } from "@/hooks/useDogs";
 import Loader from "@/components/Loader";
 import SearchHeader from "@/components/SearchPage/SearchHeader";
-import { useGetDogs } from "@/hooks/useGetDogs";
-import { useLocations } from "@/hooks/useLocations";
-import { useLocationSearch } from "@/hooks/useLocationSearch";
+import SelectLocation from "@/components/SearchPage/LocationSearch/SelectLocation";
 
 const SearchPage = () => {
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sortField, setSortField] = useState<SortField>("breed");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [page, setPage] = useState<number>(1);
-  const [locationFilteredDogIds, setLocationFilteredDogIds] = useState<string[]>([]);
 
-  const { totalDogs, breeds, dogsDetails, isLoading } = useDogs(selectedBreed, page, sortField, sortDirection);
+  const { totalDogs, breeds, dogsDetails, cities, isLoading, loadMoreCities, setSelectedCity } = useDogs(
+    selectedBreed,
+    page,
+    sortField,
+    sortDirection,
+  );
 
   const handleSortChange = (field: SortField, direction: SortDirection) => {
     setSortField(field);
@@ -25,23 +27,13 @@ const SearchPage = () => {
     setPage(1);
   };
 
-  const uniqueZipCodes = [...new Set<string>(dogsDetails.map((dog: Dog) => dog.zip_code))];
-
-  console.log(uniqueZipCodes);
-
-  const { data: location } = useLocations(uniqueZipCodes);
-
-  const { data: locationSearch } = useLocationSearch({
-    size: 10000,
-  });
-
-  console.log({ locationSearch });
-  /*
-  console.log(dogsDetails);
-  console.log(uniqueZipCodes); */
-
   const handleBreedFilter = (value: string) => {
     setSelectedBreed(value === "all" ? "" : value);
+    setPage(1);
+  };
+
+  const handleCitySelect = (value: string) => {
+    setSelectedCity(value);
     setPage(1);
   };
 
@@ -57,23 +49,30 @@ const SearchPage = () => {
         <SearchHeader />
         <div className="flex justify-between mb-6 ">
           <BreedFilter selectedBreed={selectedBreed} setSelectedBreed={handleBreedFilter} breeds={breeds} />
+          <SelectLocation
+            results={cities}
+            handleClick={handleCitySelect}
+            title={"All Cities"}
+            loadMoreItems={loadMoreCities}
+          />
           <SortByDirection
             currentSort={{ field: sortField, direction: sortDirection }}
             onSortChange={handleSortChange}
           />
         </div>
-        {/*         <LocationSearch onFilteredDogsChange={handleLocationFilteredDogsChange} />
-         */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 mb-8">
-          {dogsDetails.length > 0 ? (
-            <DogsCard dogs={dogsDetails} />
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-lg text-gray-600">No dogs found matching your search criteria.</p>
-            </div>
-          )}
-        </section>
-        <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
+
+        {dogsDetails.length > 0 ? (
+          <div>
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 mb-8">
+              <DogsCard dogs={dogsDetails} />
+            </section>
+            <Pagination totalDogs={totalDogs} currentPage={page} onPageChange={handlePageChange} />
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-xl text-white">Oops! We couldn’t find any dogs in your selected city</p>
+          </div>
+        )}
       </section>
     </section>
   );
