@@ -1,7 +1,5 @@
 import { Search } from "lucide-react";
 import { Input } from "../ui/input";
-import { useSearchDogs } from "@/hooks/useSearchDogs";
-import { useDogBreeds } from "@/hooks/useDogBreeds";
 
 const SearchInput = ({ style }: { style: string }) => {
   return (

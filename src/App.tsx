@@ -4,8 +4,7 @@ import Layout from "./pages/Layout";
 import FavoriteDogsPage from "./pages/FavoriteDogsPage";
 import SearchPage from "./pages/SearchPage";
 import { QueryClientProvider } from "@tanstack/react-query";
-/* import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
- */ import { queryClient } from "./services/api/queryClient";
+import { queryClient } from "./services/api/queryClient";
 
 function App() {
   return (
