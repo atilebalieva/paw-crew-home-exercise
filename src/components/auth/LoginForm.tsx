@@ -28,17 +28,13 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const [error, setError] = useState<string | null>(null);
-
   const onSubmitForm = async (data: LoginFormData) => {
     try {
       await apiClient.login(data.name, data.email);
 
       navigate("/", { replace: true });
       form.reset();
-    } catch (err: any) {
-      setError(err?.response?.data?.message || "Login failed");
-    }
+    } catch (err: any) {}
   };
 
   return (

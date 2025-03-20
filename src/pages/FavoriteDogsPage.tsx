@@ -11,7 +11,7 @@ import MatchDogModal from "@/components/FavoriteDogs/MatchDogModal";
 const FavoriteDogsPage = () => {
   const { favorites, favoriteDogCache, addFavorite } = useAuthStore();
   const { mutate: matchDogs } = useMatchDogs();
-  const [matchedDog, setMatchedDog] = useState<Dog | null>();
+  const [matchedDog, setMatchedDog] = useState<Dog | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

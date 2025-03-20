@@ -14,4 +14,11 @@ export default defineConfig({
   optimizeDeps: {
     include: ["motion"],
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./index.xs";`,
+      },
+    },
+  },
 });

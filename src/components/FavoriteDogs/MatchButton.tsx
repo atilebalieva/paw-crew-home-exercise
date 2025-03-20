@@ -6,12 +6,11 @@ import { Dog } from "@/lib/types";
 
 interface MatchButtonProps {
   handleClick: () => void;
-  disabled?: boolean;
   matchedDog: Dog | null;
   isLoading: boolean;
 }
 
-const MatchButton = ({ handleClick, disabled = false, matchedDog, isLoading }: MatchButtonProps) => {
+const MatchButton = ({ handleClick, matchedDog, isLoading }: MatchButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [sparklePosition, setSparklePosition] = useState({ x: 0, y: 0 });
 
@@ -34,7 +33,6 @@ const MatchButton = ({ handleClick, disabled = false, matchedDog, isLoading }: M
         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 opacity-75 blur-xl group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
         <Button
           onClick={handleClick}
-          disabled={isLoading}
           size="lg"
           className={cn(
             "relative overflow-hidden bg-gradient-to-r from-pink-500 via-fuchsia-500 to-purple-600",
